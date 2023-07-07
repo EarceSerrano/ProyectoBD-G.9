@@ -35,7 +35,7 @@ fecha      VARCHAR2(100),
 ID           VARCHAR2(50)
 );
 
- --- Tabla opcional , esta por verse
+ --- Tabla opcional , se usara en un futuro de ser necesario
  
 CREATE TABLE tb_categorias(
 productos   VARCHAR2(100),
