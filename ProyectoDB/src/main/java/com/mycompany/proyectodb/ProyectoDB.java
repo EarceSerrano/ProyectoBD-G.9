@@ -1,14 +1,14 @@
 /*
- * Aprendiendo a usar java- Proyecto BD
+ * Proyecto Programado BD
  */
 
-package com.mycompany.proyectobd;
+package com.mycompany.proyectodb;
 
 /**
  *
  * @author Esteban
  */
-public class ProyectoBD {
+public class ProyectoDB {
 
     public static void main(String[] args) {
         System.out.println("Hello World!");
