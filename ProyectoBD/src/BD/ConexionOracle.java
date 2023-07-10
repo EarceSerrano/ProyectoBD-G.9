@@ -5,12 +5,9 @@
 package BD;
 
 import java.sql.Connection;
+import java.sql.DriverManager;
 
-/**
- *
- * @author Esteban
- */
-public class conexionOracle {
+public class ConexionOracle {
     private Connection conn = null;
     private String url, user, pass;
     
@@ -25,7 +22,7 @@ public class conexionOracle {
             user= "JAVA";
             pass= "JAVA";
                     conn = DriverManager.getConnection(url, user, pass);
-                    System.out.println("Conectando");
+                    System.out.println("Conectando!");
                     
         } catch(Exception e){
             System.out.println("No se pudo establecer la conexion");
@@ -36,6 +33,7 @@ public class conexionOracle {
     public void desconectar(){
         try{
             conn.close();
+            System.out.println("Desconectado!");
         } catch(Exception e){
             System.out.println("Error, no se pudo desconectar ");
         }

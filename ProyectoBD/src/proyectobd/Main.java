@@ -4,6 +4,7 @@
  */
 package proyectobd;
 
+import BD.ConexionOracle;
 /**
  *
  * @author Esteban
@@ -12,6 +13,8 @@ public class Main {
 
      public static void main(String[] args) {
         System.out.println("Codigo para la base de datos-Proyecto");
+           ConexionOracle conn = new ConexionOracle();
+           conn.desconectar();
     }
     
 }
