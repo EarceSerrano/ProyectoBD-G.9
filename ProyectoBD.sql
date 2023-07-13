@@ -45,3 +45,10 @@ clientes    VARCHAR2(100),
 ID_categorias VARCHAR2(50)
 );
 
+
+INSERT INTO tb_productos(precio, descripcion, ID, categoria)
+VALUES (10000, 'Tacones','ZA01', 'calzado');
+commit;
+
+
+
