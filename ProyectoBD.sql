@@ -46,18 +46,7 @@ ID_categorias VARCHAR2(50)
 );
 
 
-INSERT INTO tb_productos(precio, descripcion, ID, categoria) VALUES (25000, 'Zapatos deportivos','ZA02', 'calzado');
-INSERT INTO tb_productos(precio, descripcion, ID, categoria) VALUES (23000, 'Vans','ZA03', 'calzado');
-INSERT INTO tb_productos(precio, descripcion, ID, categoria) VALUES (2000, 'Sandalias','ZA04', 'calzado');
-INSERT INTO tb_productos(precio, descripcion, ID, categoria) VALUES (12000, 'Zapatos planos','ZA05', 'calzado');
-INSERT INTO tb_productos(precio, descripcion, ID, categoria) VALUES (18000, 'Botines','ZA06', 'calzado');
-INSERT INTO tb_productos(precio, descripcion, ID, categoria) VALUES (9000, 'Alpargata','ZA07', 'calzado');
-INSERT INTO tb_productos(precio, descripcion, ID, categoria) VALUES (4000, 'Botas de lluvia','ZA08', 'calzado');
-INSERT INTO tb_productos(precio, descripcion, ID, categoria) VALUES (5000, 'Pantuflas','ZA09', 'calzado');
-INSERT INTO tb_productos(precio, descripcion, ID, categoria) VALUES (6000, 'Zuecos','ZA10', 'calzado');
-INSERT INTO tb_productos(precio, descripcion, ID, categoria) VALUES (25000, 'Botas','ZA11', 'calzado');
-
 commit;
 
-
+SELECT * FROM tb_proveedores;
 
