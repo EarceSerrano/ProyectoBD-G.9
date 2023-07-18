@@ -1,38 +1,38 @@
 ---ProyectO Base de datos.
 
 CREATE TABLE tb_materiales(
-UnidadPrecio NUMBER,
-proveedor    VARCHAR2(100),
-ID           VARCHAR2(50)
+UnidadPrecio  NUMBER,
+proveedor     VARCHAR2(100),
+ID_materiales VARCHAR2(50)
 );
 
 CREATE TABLE tb_productos(
 precio       NUMBER,
 descripcion  VARCHAR2(100),
-ID           VARCHAR2(50),
+ID_producto  VARCHAR2(50),
 categoria    VARCHAR2(50)
 );
 
 CREATE TABLE tb_proveedores(
-numero    NUMBER,
-correo    VARCHAR2(100),
-ID        VARCHAR2(50),
-nombre    VARCHAR2(50)
+numero       NUMBER,
+correo       VARCHAR2(100),
+ID_proveedor VARCHAR2(50),
+nombre       VARCHAR2(50)
 
 );
 
 CREATE TABLE tb_clientes(
-telefono     NUMBER,
-nombre    VARCHAR2(100),
-ID        VARCHAR2(50),
-correo    VARCHAR2(50) 
+telefono   NUMBER,
+nombre     VARCHAR2(100),
+ID_cliente VARCHAR2(50),
+correo     VARCHAR2(50) 
 );
 
 CREATE TABLE tb_facturas(
 cliente     VARCHAR2(100),
 correo      VARCHAR(50),
-fecha      VARCHAR2(100),
-ID           VARCHAR2(50)
+fecha       VARCHAR2(100),
+ID_factura  VARCHAR2(50)
 );
 
  --- Tabla opcional , se usara en un futuro de ser necesario
