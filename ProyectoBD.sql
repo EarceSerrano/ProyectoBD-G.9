@@ -18,7 +18,7 @@ numero       NUMBER,
 correo       VARCHAR2(100),
 ID_proveedor VARCHAR2(50),
 nombre       VARCHAR2(50)
-
+--- hola 
 );
 
 CREATE TABLE tb_clientes(
