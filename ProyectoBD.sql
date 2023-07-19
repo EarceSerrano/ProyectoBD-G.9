@@ -20,7 +20,7 @@ ID_proveedor VARCHAR2(50),
 nombre       VARCHAR2(50)
 
 );
---- HOLA
+---hola 
 CREATE TABLE tb_clientes(
 telefono   NUMBER,
 nombre     VARCHAR2(100),
