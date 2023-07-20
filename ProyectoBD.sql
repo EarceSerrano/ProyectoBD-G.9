@@ -152,13 +152,13 @@ VALUES(2, 'sales@materialmakers.com', A12.NEXTVAL, 'MaterialMakers',40);
 
 ----Insert de producto 
 INSERT INTO tb_productos (precio, descripcion, ID_producto, categoria, nom_producto,ID_cliente)
-VALUES (10, 'Camiseta de algod�n', A13.nextval, 'Ropa', 'Camiseta b�sica',30);
+VALUES (10, 'Camiseta de algodón', A13.nextval, 'Ropa', 'Camiseta básica',30);
 
        INSERT INTO tb_productos (precio, descripcion, ID_producto, categoria, nom_producto,ID_cliente)
 VALUES (25, 'Zapatillas deportivas', A13.nextval, 'Calzado', 'Zapatillas deportivas Nike',31);
 
        INSERT INTO tb_productos (precio, descripcion, ID_producto, categoria, nom_producto,ID_cliente)
-VALUES (5, 'L�piz HB', A13.nextval, 'Material Escolar', 'L�piz',32);
+VALUES (5, 'Lápiz HB', A13.nextval, 'Material Escolar', 'Lápiz',32);
 
        INSERT INTO tb_productos (precio, descripcion, ID_producto, categoria, nom_producto,ID_cliente)
 VALUES (50, 'Bolso de cuero', A13.nextval, 'Accesorios', 'Bolso de mano',33);
@@ -174,23 +174,23 @@ VALUES (12, 'Cuaderno de tapa dura', A13.nextval, 'Material Escolar', 'Cuaderno 
 
 ----insert de Cliente
 INSERT INTO tb_clientes (telefono, nombre, apellido, ID_cliente, correo)
-VALUES (1234, 'Juan', 'P�rez',  A14.nextval, 'juan@example.com');
+VALUES (1234, 'Juan', 'Pérez',  A14.nextval, 'juan@example.com');
 
 INSERT INTO tb_clientes (telefono, nombre, apellido, ID_cliente, correo)
-VALUES (9876, 'Mar�a', 'Gonz�lez', A14.nextval, 'maria@example.com');
+VALUES (9876, 'María', 'González', A14.nextval, 'maria@example.com');
 
 INSERT INTO tb_clientes (telefono, nombre, apellido, ID_cliente, correo)
-VALUES (5555, 'Carlos', 'L�pez', A14.nextval, 'carlos@example.com');
+VALUES (5555, 'Carlos', 'López', A14.nextval, 'carlos@example.com');
 
 INSERT INTO tb_clientes (telefono, nombre, apellido, ID_cliente, correo)
-VALUES (1112, 'Ana', 'S�nchez', A14.nextval, 'ana@example.com');
+VALUES (1112, 'Ana', 'Sánchez', A14.nextval, 'ana@example.com');
 
 INSERT INTO tb_clientes (telefono, nombre, apellido, ID_cliente, correo)
-VALUES (9998, 'Pedro', 'Mart�nez', A14.nextval, 'pedro@example.com');
+VALUES (9998, 'Pedro', 'Martínez', A14.nextval, 'pedro@example.com');
 
 -----insert de Material 
 INSERT INTO tb_materiales (UnidadPrecio, ID_material, nom)
-VALUES (10, A14.nextval, 'Algod�n');
+VALUES (10, A14.nextval, 'Algodón');
 INSERT INTO tb_materiales (UnidadPrecio, ID_material, nom)
 VALUES (15, A14.nextval, 'Caucho');
 INSERT INTO tb_materiales (UnidadPrecio, ID_material, nom)
@@ -210,11 +210,11 @@ SELECT p.nom_producto, p.descripcion, p.categoria, c.nombre, c.apellido, c.corre
 FROM tb_productos p
 JOIN tb_clientes c ON p.ID_cliente = c.ID_cliente;
 
-CREATE OR REPLACE VIEW compras_camisa_algod�n AS
+CREATE OR REPLACE VIEW compras_camisa_algodón AS
 SELECT p.nom_producto, p.descripcion, p.categoria, c.nombre, c.apellido, c.correo, p.precio * 5 as "Precio a pagar"
 FROM tb_productos p
 JOIN tb_clientes c ON p.ID_cliente = c.ID_cliente
-where p.descripcion = 'Camiseta de algod�n';
+where p.descripcion = 'Camiseta de algodón';
 
 create or replace view Productos as
 select *
@@ -228,7 +228,7 @@ select * from Clientes;
 
 select * from Compras_Clientes;
 
-select * from compras_camisa_algod�n;
+select * from compras_camisa_algodón;
 
 select * from Productos;
 
@@ -259,3 +259,102 @@ INNER JOIN tb_proveedores pr ON f.ID_proveedor = pr.ID_proveedor
 INNER JOIN tb_materiales m ON f.ID_material = m.ID_material;
 
 select * from Factura_Completa;
+
+
+
+
+----------triggers y algunas funciones 
+
+-- Triggers
+--------------
+CREATE OR REPLACE TRIGGER trigger_alerta_modificacion
+AFTER INSERT OR UPDATE OR DELETE ON tb_materiales
+FOR EACH ROW
+BEGIN
+    
+  NULL;
+END;
+
+--------------
+CREATE OR REPLACE TRIGGER trigger_alerta_campo_vacio
+BEFORE INSERT OR UPDATE ON tb_productos
+FOR EACH ROW
+BEGIN
+  IF :new.nom_producto IS NULL OR :new.precio IS NULL OR :new.ID_categoria IS NULL THEN
+    NULL;
+  END IF;
+END;
+
+----------------
+CREATE OR REPLACE TRIGGER trigger_registro_modificacion
+AFTER INSERT OR UPDATE OR DELETE ON tb_proveedores
+FOR EACH ROW
+BEGIN
+  INSERT INTO tb_auditoria (ID_auditoria, tabla_afectada, accion, fecha)
+  VALUES (ID_auditoria_seq.NEXTVAL, 'tb_proveedores', 'MODIFICACIÓN', SYSDATE);
+END;
+
+----------------
+CREATE OR REPLACE TRIGGER trigger_registro_factura
+AFTER INSERT ON tb_facturas
+FOR EACH ROW
+BEGIN
+  INSERT INTO tb_auditoria (ID_auditoria, tabla_afectada, accion, fecha)
+  VALUES (ID_auditoria_seq.NEXTVAL, 'tb_facturas', 'NUEVA FACTURA', SYSDATE);
+END;
+
+
+
+-- Triggers de auditoría para todas las tablas
+---supongo que podremos duplicarlo para las demas tablas
+CREATE OR REPLACE TRIGGER trigger_registro_clientes
+AFTER INSERT OR UPDATE OR DELETE ON tb_clientes
+FOR EACH ROW
+BEGIN
+  INSERT INTO tb_auditoria (ID_auditoria, tabla_afectada, accion, fecha)
+  VALUES (ID_auditoria_seq.NEXTVAL, 'tb_clientes', 'CAMBIO EN CLIENTE', SYSDATE);
+END;
+
+-- Funciones
+
+CREATE OR REPLACE FUNCTION calcular_descuento(precio INT, descuento INT) RETURN INT AS
+BEGIN
+  RETURN precio - (precio * descuento / 100);
+END;
+/
+
+---------------------    
+
+CREATE OR REPLACE FUNCTION obtener_proveedor_mas_caro RETURN VARCHAR2 AS
+  v_proveedor VARCHAR2(100);
+BEGIN
+  SELECT nombre_p INTO v_proveedor
+  FROM tb_proveedores
+  ORDER BY numero DESC
+  FETCH FIRST ROW ONLY;
+  RETURN v_proveedor;
+END;
+/
+
+----------------------
+    
+CREATE OR REPLACE FUNCTION obtener_proveedor_mas_barato RETURN VARCHAR2 AS
+  v_proveedor VARCHAR2(100);
+BEGIN
+  SELECT nombre_p INTO v_proveedor
+  FROM tb_proveedores
+  ORDER BY numero ASC
+  FETCH FIRST ROW ONLY;
+  RETURN v_proveedor;
+END;
+/
+
+--------------------
+    
+CREATE OR REPLACE FUNCTION verificar_inventario(ID_producto INT) RETURN INT AS
+  v_stock INT;
+BEGIN
+  
+  RETURN 0; --valor ejemplo
+END;
+/
