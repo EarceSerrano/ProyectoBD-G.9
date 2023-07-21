@@ -26,16 +26,19 @@ drop table tb_materiales;
 drop table tb_productos;
 drop table tb_proveedores;
 drop table tb_facturas;
-
+drop table tb_empleados;
+drop table detalles_factura;
+drop table tb_clientes;
+drop table tb_cat;
 --- creacion de tablas
 
 CREATE TABLE tb_materiales(
 ID_material  int primary key not null,
 unidadPrecio int not null,
-ID_proovedor INT NOT NULL,
+ID_proveedor INT NOT NULL,
 unidades INT NOT NULL, 
 descripcion varchar2(50) not null,
-FOREIGN KEY (ID_proovedor) REFERENCES tb_proovedores (ID_proovedor)
+FOREIGN KEY (ID_proveedor) REFERENCES tb_proveedores (ID_proveedor)
 );
 ---descripcion = nombre (cualquiera)
 
@@ -44,7 +47,7 @@ ID_producto  int primary key not null,
 nom_producto varchar2(100) not null,
 precio       int not null,
 descripcion  VARCHAR2(100),
-ID_categoria    VARCHAR2(50) not null,
+ID_categoria INT  not null,
 ID_material  INT not null,
 unidades     INT not null,
 FOREIGN KEY (ID_material) REFERENCES tb_materiales (ID_material),
@@ -54,7 +57,7 @@ FOREIGN KEY (ID_categoria) REFERENCES tb_categorias (ID_categoria)
 
 
 CREATE TABLE tb_proveedores(
-ID_proveedor int primary key not null,
+ID_proveedor INT primary key not null,
 nombre_p    VARCHAR2(100),
 numero    int not null,
 correo    VARCHAR2(100)
@@ -69,7 +72,7 @@ correo    VARCHAR2(50)
 );
 
 
-
+--- Esta tabla se debe modificar eventualmente para mejorar el proyecto
 CREATE TABLE tb_empleados(
 ID_empleado int primary key not null,
 nombre VARCHAR2(100),
@@ -85,26 +88,30 @@ numero_ventas INT
 CREATE TABLE detalles_factura(
 ID_detalle_factura int primary key not NULL,
 ID_factura INT NOT NULL,
-ID_producto INT not NULL,
+ID_producto INT NOT NULL,
 cantidad INT NOT NULL,
 FOREIGN KEY (ID_factura) REFERENCES tb_facturas (ID_factura),
-FOREIGN KEY (ID_producto) REFERENCES tb_producto (ID_material)
+FOREIGN KEY (ID_producto) REFERENCES tb_productos (ID_material)
 );
 
 
-
+--- tb facturas y detalles , tiene error
 CREATE TABLE tb_facturas(
-ID_factura INT primary key not null,
+ID_factura INT primary key not NULL,
 ID_cliente INT not NULL,
 ID_empleado INT not NULL,
 correo VARCHAR2(50),
-fecha DATE not NULL,
+fecha VARCHAR2(50) not NULL,
 FOREIGN KEY (ID_cliente) REFERENCES tb_clintes (ID_cliente),
-FOREIGN KEY (ID_empleado) REFERENCES tb_empleados (ID_empleados)
+FOREIGN KEY (ID_empleado) REFERENCES tb_empleados (ID_empleado)
 );
 
 
-
+CREATE TABLE tb_categorias(
+ID_categoria INT not NULL,
+nombre_categoria VARCHAR2(50)not NULL, 
+descripcion VARCHAR2(50)
+);
 
 
 
@@ -259,3 +266,37 @@ INNER JOIN tb_proveedores pr ON f.ID_proveedor = pr.ID_proveedor
 INNER JOIN tb_materiales m ON f.ID_material = m.ID_material;
 
 select * from Factura_Completa;
+
+
+
+
+
+
+
+----**********************FUNCIONES*******************************
+
+--- Que producto tiene mas inventario?
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
