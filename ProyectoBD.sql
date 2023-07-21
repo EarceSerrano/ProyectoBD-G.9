@@ -43,9 +43,9 @@ FOREIGN KEY (ID_proveedor) REFERENCES tb_proveedores (ID_proveedor)
 ---descripcion = nombre (cualquiera)
 
 CREATE TABLE tb_productos(
-ID_producto  int primary key not null,
+ID_producto  INT primary key not NULL,
 nom_producto varchar2(100) not null,
-precio       int not null,
+precio       INT not null,
 descripcion  VARCHAR2(100),
 ID_categoria INT  not null,
 ID_material  INT not null,
@@ -54,7 +54,7 @@ FOREIGN KEY (ID_material) REFERENCES tb_materiales (ID_material),
 FOREIGN KEY (ID_categoria) REFERENCES tb_categorias (ID_categoria)
 );
 
-
+DROP TABLE tb_productos;
 
 CREATE TABLE tb_proveedores(
 ID_proveedor INT primary key not null,
@@ -90,30 +90,29 @@ ID_detalle_factura int primary key not NULL,
 ID_factura INT NOT NULL,
 ID_producto INT NOT NULL,
 cantidad INT NOT NULL,
-FOREIGN KEY (ID_factura) REFERENCES tb_facturas (ID_factura),
-FOREIGN KEY (ID_producto) REFERENCES tb_productos (ID_material)
+FOREIGN KEY (ID_factura) REFERENCES tb_factura (ID_factura),
+FOREIGN KEY (ID_producto) REFERENCES tb_productos (ID_producto)
 );
 
 
+
 --- tb facturas y detalles , tiene error
-CREATE TABLE tb_facturas(
+CREATE TABLE tb_factura(
 ID_factura INT primary key not NULL,
 ID_cliente INT not NULL,
 ID_empleado INT not NULL,
-correo VARCHAR2(50),
+correo VARCHAR2(50)not NULL,
 fecha VARCHAR2(50) not NULL,
-FOREIGN KEY (ID_cliente) REFERENCES tb_clintes (ID_cliente),
+FOREIGN KEY (ID_cliente) REFERENCES tb_clientes (ID_cliente),
 FOREIGN KEY (ID_empleado) REFERENCES tb_empleados (ID_empleado)
 );
 
 
 CREATE TABLE tb_categorias(
-ID_categoria INT not NULL,
-nombre_categoria VARCHAR2(50)not NULL, 
+ID_categoria INT primary key not NULL,
+nombre_categoria VARCHAR2(50) not NULL, 
 descripcion VARCHAR2(50)
 );
-
-
 
 
 
