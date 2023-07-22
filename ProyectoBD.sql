@@ -8,6 +8,7 @@ create sequence A13
 START WITH 20
 INCREMENT BY 1;
 
+--- secuencia ID materiales
 create sequence A14
 START WITH 30
 INCREMENT BY 1;
@@ -54,7 +55,6 @@ FOREIGN KEY (ID_material) REFERENCES tb_materiales (ID_material),
 FOREIGN KEY (ID_categoria) REFERENCES tb_categorias (ID_categoria)
 );
 
-DROP TABLE tb_productos;
 
 CREATE TABLE tb_proveedores(
 ID_proveedor INT primary key not null,
@@ -122,94 +122,92 @@ descripcion VARCHAR2(50)
 
 ---Inserccion de algunos datos en las tablas (para trabajar)
 ---) insert en tb_proveedores
-INSERT INTO tb_proveedores(numero, correo, ID_proveedor, nombre_p,ID_material) 
-VALUES(234312253, 'info@textitech.com', A12.NEXTVAL, 'TextiTech',40);
-INSERT INTO tb_proveedores(numero, correo, ID_proveedor, nombre_p,ID_material) 
-VALUES(2902, 'contact@fiberfab.com', A12.NEXTVAL, 'FiberFab',46);
-INSERT INTO tb_proveedores(numero, correo, ID_proveedor, nombre_p,ID_material) 
-VALUES(2, 'sales@stylesource.com', A12.NEXTVAL, 'StyleSource',45);
-INSERT INTO tb_proveedores(numero, correo, ID_proveedor, nombre_p,ID_material) 
-VALUES(2, 'info@stitchmaster.com', A12.NEXTVAL, 'StitchMaster',43);
-INSERT INTO tb_proveedores(numero, correo, ID_proveedor, nombre_p,ID_material) 
-VALUES(2, 'inquiries@fabrico.com',A12.NEXTVAL, 'FabriCo',44);
-INSERT INTO tb_proveedores(numero, correo, ID_proveedor, nombre_p,ID_material) 
-VALUES(2, 'contact@threadtech.com',A12.NEXTVAL, 'ThreadTech',42);
-INSERT INTO tb_proveedores(numero, correo, ID_proveedor, nombre_p,ID_material) 
-VALUES(2, 'info@fashionfusion.com', A12.NEXTVAL, 'FashionFusion',40);
-INSERT INTO tb_proveedores(numero, correo, ID_proveedor, nombre_p,ID_material) 
-VALUES(2, 'sales@clothcraft.com', A12.NEXTVAL, 'ClothCraft',41);
-INSERT INTO tb_proveedores(numero, correo, ID_proveedor, nombre_p,ID_material) 
-VALUES(2, 'info@weaveworx.com', A12.NEXTVAL, 'WeaveWorx',45);
-INSERT INTO tb_proveedores(numero, correo, ID_proveedor, nombre_p,ID_material) 
-VALUES(2, 'contact@trimtrend.com', A12.NEXTVAL, 'TrimTrend',43);
-INSERT INTO tb_proveedores(numero, correo, ID_proveedor, nombre_p,ID_material) 
-VALUES(2, 'info@fabriclink.com', A12.NEXTVAL, 'FabricLink',41);
-INSERT INTO tb_proveedores(numero, correo, ID_proveedor, nombre_p,ID_material) 
-VALUES(2, 'sales@designdrape.com',A12.NEXTVAL, 'DesignDrape',46);
-INSERT INTO tb_proveedores(numero, correo, ID_proveedor, nombre_p,ID_material) 
-VALUES(2, 'contact@threadworks.com', A12.NEXTVAL, 'ThreadWorks',44);
-INSERT INTO tb_proveedores(numero, correo, ID_proveedor, nombre_p,ID_material) 
-VALUES(2, 'info@sewingsupplies.com', A12.NEXTVAL, 'SewingSupplies',41);
-INSERT INTO tb_proveedores(numero, correo, ID_proveedor, nombre_p,ID_material) 
-VALUES(2, 'inquiries@trendytextiles.com', A12.NEXTVAL, 'TrendyTextiles',45);
-INSERT INTO tb_proveedores(numero, correo, ID_proveedor, nombre_p,ID_material) 
-VALUES(2, 'sales@materialmakers.com', A12.NEXTVAL, 'MaterialMakers',40);
+
+INSERT INTO tb_proveedores (ID_proveedor, nombre_p, numero, correo)
+VALUES (A12.NEXTVAL, 'TextiTech', 234312253, 'info@textitech.com');
+INSERT INTO tb_proveedores (ID_proveedor, nombre_p, numero, correo)
+VALUES (A12.NEXTVAL, 'FiberFab', 29020823, 'contact@fiberfab.com');
+INSERT INTO tb_proveedores (ID_proveedor, nombre_p, numero, correo)
+VALUES (A12.NEXTVAL, 'Tstore', 234312253, 'info@tstore.com');
 
 
 ----Insert de producto 
-INSERT INTO tb_productos (precio, descripcion, ID_producto, categoria, nom_producto,ID_cliente)
-VALUES (10, 'Camiseta de algodón', A13.nextval, 'Ropa', 'Camiseta básica',30);
+INSERT INTO tb_productos (precio, descripcion, ID_producto, categoria, nom_producto)
+VALUES (100, 'Camiseta de algodón', A13.nextval, 4 , 'Camiseta básica',30);
 
-       INSERT INTO tb_productos (precio, descripcion, ID_producto, categoria, nom_producto,ID_cliente)
-VALUES (25, 'Zapatillas deportivas', A13.nextval, 'Calzado', 'Zapatillas deportivas Nike',31);
+INSERT INTO tb_productos (ID_producto, nom_producto, precio, descripcion, ID_categoria, ID_material, unidades)
+VALUES (A13.nextval, 'Camiseta estampada', 15000, 'Camiseta de algodón estampada', 1, 1, 100);
+INSERT INTO tb_productos (ID_producto, nom_producto, precio, descripcion, ID_categoria, ID_material, unidades)
+VALUES (A13.nextval, 'Pantalón de mezclilla', 12000, 'Pantalón de mezclilla de corte recto', 2, 2, 50);
+INSERT INTO tb_productos (ID_producto, nom_producto, precio, descripcion, ID_categoria, ID_material, unidades)
+VALUES (A13.nextval, 'Chaqueta de cuero negra', 70000, 'Chaqueta de cuero negra elegante', 3, 3, 20);
+INSERT INTO tb_productos (ID_producto, nom_producto, precio, descripcion, ID_categoria, ID_material, unidades)
+VALUES (A13.nextval, 'Tacones rosa', 20, 'Tacones color rosa', 4, 4, 80);
+INSERT INTO tb_productos (ID_producto, nom_producto, precio, descripcion, ID_categoria, ID_material, unidades)
+VALUES (A13.nextval, 'Suéter de lana', 60, 'Suéter de lana con cuello en V', 5, 5, 30);
 
-       INSERT INTO tb_productos (precio, descripcion, ID_producto, categoria, nom_producto,ID_cliente)
-VALUES (5, 'Lápiz HB', A13.nextval, 'Material Escolar', 'Lápiz',32);
 
-       INSERT INTO tb_productos (precio, descripcion, ID_producto, categoria, nom_producto,ID_cliente)
-VALUES (50, 'Bolso de cuero', A13.nextval, 'Accesorios', 'Bolso de mano',33);
-
-       INSERT INTO tb_productos (precio, descripcion, ID_producto, categoria, nom_producto,ID_cliente)
-VALUES (15, 'Reloj de acero inoxidable', A13.nextval, 'Accesorios', 'Reloj plateado',34);
-
-       INSERT INTO tb_productos (precio, descripcion, ID_producto, categoria, nom_producto,ID_cliente)
-VALUES (30, 'Pantalones vaqueros', A13.nextval, 'Ropa', 'Pantalones vaqueros ajustados',34);
-
-       INSERT INTO tb_productos (precio, descripcion, ID_producto, categoria, nom_producto,ID_cliente)
-VALUES (12, 'Cuaderno de tapa dura', A13.nextval, 'Material Escolar', 'Cuaderno de notas',31);
 
 ----insert de Cliente
 INSERT INTO tb_clientes (telefono, nombre, apellido, ID_cliente, correo)
 VALUES (1234, 'Juan', 'Pérez',  A14.nextval, 'juan@example.com');
 
-INSERT INTO tb_clientes (telefono, nombre, apellido, ID_cliente, correo)
-VALUES (9876, 'María', 'González', A14.nextval, 'maria@example.com');
 
-INSERT INTO tb_clientes (telefono, nombre, apellido, ID_cliente, correo)
-VALUES (5555, 'Carlos', 'López', A14.nextval, 'carlos@example.com');
 
-INSERT INTO tb_clientes (telefono, nombre, apellido, ID_cliente, correo)
-VALUES (1112, 'Ana', 'Sánchez', A14.nextval, 'ana@example.com');
-
-INSERT INTO tb_clientes (telefono, nombre, apellido, ID_cliente, correo)
-VALUES (9998, 'Pedro', 'Martínez', A14.nextval, 'pedro@example.com');
 
 -----insert de Material 
-INSERT INTO tb_materiales (UnidadPrecio, ID_material, nom)
-VALUES (10, A14.nextval, 'Algodón');
-INSERT INTO tb_materiales (UnidadPrecio, ID_material, nom)
-VALUES (15, A14.nextval, 'Caucho');
-INSERT INTO tb_materiales (UnidadPrecio, ID_material, nom)
-VALUES (12, A14.nextval, 'Mina');
-INSERT INTO tb_materiales (UnidadPrecio, ID_material, nom)
-VALUES (8, A14.nextval, 'Cuero');
-INSERT INTO tb_materiales (UnidadPrecio, ID_material, nom)
-VALUES (20, A14.nextval, 'Acero inoxidable');
-INSERT INTO tb_materiales (UnidadPrecio, ID_material, nom)
-VALUES (18, A14.nextval, 'Mezclilla');
-INSERT INTO tb_materiales (UnidadPrecio, ID_material, nom)
-VALUES (11, A14.nextval, 'Hojas');
 
+INSERT INTO tb_materiales (ID_material, unidadPrecio, ID_proveedor, unidades, descripcion)
+VALUES (A14.nextval, 600, 1, 200, 'Algodón suave');
+INSERT INTO tb_materiales (ID_material, unidadPrecio, ID_proveedor, unidades, descripcion)
+VALUES (A14.nextval, 2000, 1, 75, 'Cuero');
+INSERT INTO tb_materiales (ID_material, unidadPrecio, ID_proveedor, unidades, descripcion)
+VALUES (A14.nextval, 500, 2, 300, 'Mezclilla');
+INSERT INTO tb_materiales (ID_material, unidadPrecio, ID_proveedor, unidades, descripcion)
+VALUES (A14.nextval, 400, 3, 350, 'Poliester');
+INSERT INTO tb_materiales (ID_material, unidadPrecio, ID_proveedor, unidades, descripcion)
+VALUES (A14.nextval, 700, 2, 100, 'Lana');
+INSERT INTO tb_materiales (ID_material, unidadPrecio, ID_proveedor, unidades, descripcion)
+VALUES (A14.nextval, 650, 2, 230, 'Lycra');
+INSERT INTO tb_materiales (ID_material, unidadPrecio, ID_proveedor, unidades, descripcion)
+VALUES (A14.nextval, 300, 1, 400, 'Caucho');
+INSERT INTO tb_materiales (ID_material, unidadPrecio, ID_proveedor, unidades, descripcion)
+VALUES (A14.nextval, 1000, 1, 230, 'Piel sintetica');
+INSERT INTO tb_materiales (ID_material, unidadPrecio, ID_proveedor, unidades, descripcion)
+VALUES (A14.nextval, 500, 2, 400, 'Material sintetico');
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+---Inserccion de Categorias--- **************
+
+INSERT INTO tb_categorias (ID_categoria, nombre_categoria, descripcion)
+VALUES (1, 'Suéter', 'Prendas tejidas para mantenerse abrigado');
+INSERT INTO tb_categorias (ID_categoria, nombre_categoria, descripcion)
+VALUES (2, 'Chaqueta', 'Prendas de abrigo para el torso');
+INSERT INTO tb_categorias (ID_categoria, nombre_categoria, descripcion)
+VALUES (3, 'Pantalon', 'Prendas para cubrir las piernas, usualmente mezclilla');
+INSERT INTO tb_categorias (ID_categoria, nombre_categoria, descripcion)
+VALUES (4, 'Camiseta', 'Prendas de manga corta y sin cuello, hechas de algodon');
+
+---------------------------**********************************------------------------------- 
 /*Views de Clientes y Producto*/
 CREATE OR REPLACE VIEW Compras_Clientes AS
 SELECT p.nom_producto, p.descripcion, p.categoria, c.nombre, c.apellido, c.correo, p.precio * 5 as "Precio a pagar"
@@ -277,12 +275,27 @@ select * from Factura_Completa;
 --- Que producto tiene mas inventario?
 
 
+--- SIGUE SIN FUNCIONAR , actualmente revisando la funcion.
 
+CREATE OR REPLACE FUNCTION producto_con_mas_inventario(ID_Categoria_param IN tb_categorias.ID_categoria%TYPE) RETURN VARCHAR2 AS
+    v_id_producto tb_productos.id_producto%TYPE;
+    v_nom_producto tb_productos.nom_producto%TYPE;
+    v_max_unidades tb_productos.unidades%TYPE := 0;
+BEGIN
+    FOR rec IN (SELECT p.ID_producto, p.nom_producto, p.unidades
+                FROM tb_productos p
+                WHERE p.ID_categoria = ID_Categoria_param) LOOP
+        IF rec.unidades > v_max_unidades THEN
+            v_max_unidades := rec.unidades;
+            v_id_producto := rec.ID_producto;
+            v_nom_producto := rec.nom_producto;
+        END IF;
+    END LOOP;
 
+    RETURN 'El producto con mayor cantidad de inventario en la categoría ' || ID_Categoria_param || ' es: ' || v_nom_producto;
+END;
 
-
-
-
+SELECT producto_con_mas_inventario(1) AS resultado FROM DUAL;
 
 
 
