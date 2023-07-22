@@ -132,19 +132,17 @@ VALUES (A12.NEXTVAL, 'Tstore', 234312253, 'info@tstore.com');
 
 
 ----Insert de producto 
-INSERT INTO tb_productos (precio, descripcion, ID_producto, categoria, nom_producto)
-VALUES (100, 'Camiseta de algodón', A13.nextval, 4 , 'Camiseta básica',30);
 
 INSERT INTO tb_productos (ID_producto, nom_producto, precio, descripcion, ID_categoria, ID_material, unidades)
-VALUES (A13.nextval, 'Camiseta estampada', 15000, 'Camiseta de algodón estampada', 1, 1, 100);
+VALUES (A13.nextval, 'Camiseta estampada', 15000, 'Camiseta de algodón estampada', 1, 51, 100);
 INSERT INTO tb_productos (ID_producto, nom_producto, precio, descripcion, ID_categoria, ID_material, unidades)
-VALUES (A13.nextval, 'Pantalón de mezclilla', 12000, 'Pantalón de mezclilla de corte recto', 2, 2, 50);
+VALUES (A13.nextval, 'Pantalón de mezclilla', 12000, 'Pantalón de mezclilla de corte recto', 2, 53, 50);
 INSERT INTO tb_productos (ID_producto, nom_producto, precio, descripcion, ID_categoria, ID_material, unidades)
-VALUES (A13.nextval, 'Chaqueta de cuero negra', 70000, 'Chaqueta de cuero negra elegante', 3, 3, 20);
+VALUES (A13.nextval, 'Chaqueta de cuero negra', 70000, 'Chaqueta de cuero negra elegante', 3, 52, 20);
 INSERT INTO tb_productos (ID_producto, nom_producto, precio, descripcion, ID_categoria, ID_material, unidades)
-VALUES (A13.nextval, 'Tacones rosa', 20, 'Tacones color rosa', 4, 4, 80);
+VALUES (A13.nextval, 'Tacones rosa', 20, 'Tacones color rosa', 4, 57, 80);
 INSERT INTO tb_productos (ID_producto, nom_producto, precio, descripcion, ID_categoria, ID_material, unidades)
-VALUES (A13.nextval, 'Suéter de lana', 60, 'Suéter de lana con cuello en V', 5, 5, 30);
+VALUES (A13.nextval, 'Suéter de lana', 60, 'Suéter de lana con cuello en V', 5, 55, 30);
 
 
 
