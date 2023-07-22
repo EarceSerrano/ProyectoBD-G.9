@@ -140,10 +140,13 @@ VALUES (A13.nextval, 'Pantalón de mezclilla', 12000, 'Pantalón de mezclilla de c
 INSERT INTO tb_productos (ID_producto, nom_producto, precio, descripcion, ID_categoria, ID_material, unidades)
 VALUES (A13.nextval, 'Chaqueta de cuero negra', 70000, 'Chaqueta de cuero negra elegante', 3, 52, 20);
 INSERT INTO tb_productos (ID_producto, nom_producto, precio, descripcion, ID_categoria, ID_material, unidades)
-VALUES (A13.nextval, 'Tacones rosa', 20, 'Tacones color rosa', 4, 57, 80);
+VALUES (A13.nextval, 'Tacones rosa', 20000, 'Tacones color rosa', 4, 57, 80);
 INSERT INTO tb_productos (ID_producto, nom_producto, precio, descripcion, ID_categoria, ID_material, unidades)
-VALUES (A13.nextval, 'Suéter de lana', 60, 'Suéter de lana con cuello en V', 5, 55, 30);
-
+VALUES (A13.nextval, 'Suéter de lana', 15000, 'Suéter de lana con cuello en V', 5, 55, 30);
+INSERT INTO tb_productos (ID_producto, nom_producto, precio, descripcion, ID_categoria, ID_material, unidades)
+VALUES (A13.nextval, 'zapatillas vans', 20000, 'Vans', 5, 55, 45);
+INSERT INTO tb_productos (ID_producto, nom_producto, precio, descripcion, ID_categoria, ID_material, unidades)
+VALUES (A13.nextval, 'zapatos deportivos rojos', 18000, 'zapatos deportivos color rojo', 5, 55, 47);
 
 
 ----insert de Cliente
@@ -173,22 +176,6 @@ INSERT INTO tb_materiales (ID_material, unidadPrecio, ID_proveedor, unidades, de
 VALUES (A14.nextval, 1000, 1, 230, 'Piel sintetica');
 INSERT INTO tb_materiales (ID_material, unidadPrecio, ID_proveedor, unidades, descripcion)
 VALUES (A14.nextval, 500, 2, 400, 'Material sintetico');
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -275,25 +262,27 @@ select * from Factura_Completa;
 
 --- SIGUE SIN FUNCIONAR , actualmente revisando la funcion.
 
-CREATE OR REPLACE FUNCTION producto_con_mas_inventario(ID_Categoria_param IN tb_categorias.ID_categoria%TYPE) RETURN VARCHAR2 AS
+CREATE OR REPLACE FUNCTION mas_inventario(pCategoria IN tb_categorias.ID_categoria%TYPE) RETURN VARCHAR2 AS
     v_id_producto tb_productos.id_producto%TYPE;
     v_nom_producto tb_productos.nom_producto%TYPE;
     v_max_unidades tb_productos.unidades%TYPE := 0;
 BEGIN
-    FOR rec IN (SELECT p.ID_producto, p.nom_producto, p.unidades
-                FROM tb_productos p
-                WHERE p.ID_categoria = ID_Categoria_param) LOOP
-        IF rec.unidades > v_max_unidades THEN
-            v_max_unidades := rec.unidades;
-            v_id_producto := rec.ID_producto;
-            v_nom_producto := rec.nom_producto;
-        END IF;
-    END LOOP;
 
-    RETURN 'El producto con mayor cantidad de inventario en la categoría ' || ID_Categoria_param || ' es: ' || v_nom_producto;
+    FOR rec IN (SELECT p.ID_producto, p.nom_producto, p.unidades
+        FROM tb_productos p
+        WHERE p.ID_categoria = pCategoria) LOOP
+    IF rec.unidades > v_max_unidades THEN
+        v_max_unidades := rec.unidades;
+        v_id_producto := rec.ID_producto;
+        v_nom_producto := rec.nom_producto;
+    END IF;
+END LOOP;
+
+    RETURN 'El producto con mayor cantidad de inventario en la categoría ' || pCategoria || ' es: ' || v_nom_producto;
 END;
 
-SELECT producto_con_mas_inventario(1) AS resultado FROM DUAL;
+
+SELECT mas_inventario(5) AS resultado FROM DUAL;
 
 
 
