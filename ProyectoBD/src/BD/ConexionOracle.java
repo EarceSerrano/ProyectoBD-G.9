@@ -41,3 +41,4 @@ public class ConexionOracle {
     
 }
 
+///La conexion si se ejecuta, sin embargo actualmente no se puede agregar un paquete para probar la conexion.

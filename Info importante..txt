@@ -1,0 +1,5 @@
+El archivo CURSO.SQL posee la conexion con JAVA
+
+El codigo principal se encuentra en ProyectoDB.sql
+
+La carpeta ProyectoDB posee la conexion con Java, sin embargo esta aun no se puede testear por falta del paquete necesario.

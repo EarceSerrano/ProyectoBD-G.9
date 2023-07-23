@@ -249,8 +249,175 @@ INNER JOIN tb_materiales m ON f.ID_material = m.ID_material;
 
 select * from Factura_Completa;
 
+---************** VISTAS*****************************
+
+/*Views de Clientes y Producto*/
+CREATE OR REPLACE VIEW Compras_Clientes AS
+SELECT p.nom_producto, p.descripcion, p.categoria, c.nombre, c.apellido, c.correo, p.precio * 5 as "Precio a pagar"
+FROM tb_productos p
+JOIN tb_clientes c ON p.ID_cliente = c.ID_cliente;
+
+CREATE OR REPLACE VIEW compras_camisa_algodón AS
+SELECT p.nom_producto, p.descripcion, p.categoria, c.nombre, c.apellido, c.correo, p.precio * 5 as "Precio a pagar"
+FROM tb_productos p
+JOIN tb_clientes c ON p.ID_cliente = c.ID_cliente
+where p.descripcion = 'Camiseta de algodón';
+
+create or replace view Productos as
+select *
+from tb_productos;
+
+create or replace view Clientes as
+select *
+from tb_clientes;
+
+select * from tb_Clientes;
+
+select * from Compras_Clientes;
+
+select * from compras_camisa_algodón;
+
+select * from tb_Productos;
+
+----Vista Material
+create or Replace view Materiales as
+select *
+from tb_materiales;
+
+select * from tb_Materiales;
+
+---Vistas de Proveedores
+create or replace view Proveedores as
+select *
+from tb_proveedores;
+
+select * from tb_Proveedores;
+
+---Vista de Factura 
+CREATE VIEW Factura_Completa AS
+SELECT f.ID_FACTURA, p.precio, p.descripcion, p.categoria, p.nom_producto,
+       c.telefono, c.nombre, c.apellido, c.correo,
+       pr.numero AS proveedor_numero, pr.correo AS proveedor_correo, pr.nombre_p AS proveedor_nombre,
+       m.UnidadPrecio, m.nom
+FROM tb_factura f
+INNER JOIN tb_productos p ON f.ID_producto = p.ID_producto
+INNER JOIN tb_clientes c ON f.ID_cliente = c.ID_cliente
+INNER JOIN tb_proveedores pr ON f.ID_proveedor = pr.ID_proveedor
+INNER JOIN tb_materiales m ON f.ID_material = m.ID_material;
+
+select * from Factura_Completa;
+
+---PENDIENTE PODIFICAR VISTAS ASI COMO HACER ESPECIFICAS PARA CADA USUARIO
+
+---********************* CRUD ******************************
+
+---Creacion de los update de client
+CREATE OR REPLACE PROCEDURE actualizar_telefono_cliente(p_id_cliente NUMBER, p_nuevo_telefono NUMBER)
+IS
+BEGIN
+  UPDATE tb_cliente
+  SET telefono = p_nuevo_telefono
+  WHERE ID_cliente = p_id_cliente;
+  
+  COMMIT;
+END;
 
 
+BEGIN
+  actualizar_telefono_cliente(88, 5551234567);
+END;
+
+
+---Update de Materiales
+CREATE OR REPLACE PROCEDURE actualizar_unidades(m_id_material NUMBER, m_unidades NUMBER)
+IS
+BEGIN
+  UPDATE tb_materiales
+  SET unidades = m_unidades
+  WHERE ID_material = m_id_material;
+  
+  COMMIT;
+END;
+
+
+BEGIN
+  actualizar_unidades(102, 345);
+END;
+
+
+select *
+from tb_materiales;
+
+---Funcion para eliminar materiales
+CREATE OR REPLACE PROCEDURE eliminar_material(m_id_material NUMBER)
+IS
+BEGIN
+  DELETE FROM tb_materiales
+  WHERE ID_material = m_id_material;
+  
+  COMMIT;
+END;
+
+
+BEGIN
+  eliminar_material(109);
+END;
+
+
+---Funcion para eliminar clientes
+CREATE OR REPLACE PROCEDURE eliminar_cliente_especificos(p_id_cliente NUMBER)
+IS
+BEGIN
+  DELETE FROM tb_cliente
+  WHERE ID_cliente = p_id_cliente;
+  
+  COMMIT;
+END;
+
+
+BEGIN
+  eliminar_cliente_especificos(108);
+END;
+
+/**/
+
+select *
+from tb_cliente;
+
+---Cambiar un producto
+CREATE OR REPLACE PROCEDURE actualizar_producto(p_id_producto NUMBER, p_descripcion String)
+IS
+BEGIN
+  UPDATE tb_productos
+  SET descripcion = p_descripcion
+  WHERE ID_producto = p_id_producto;
+  
+  COMMIT;
+END;
+
+
+BEGIN
+  actualizar_unidades(102, '');
+END;
+
+
+select *
+from tb_productos;
+
+---Funcion para eliminar productos
+CREATE OR REPLACE PROCEDURE eliminar_producto(p_id_producto NUMBER)
+IS
+BEGIN
+  DELETE FROM tb_productos
+  WHERE ID_producto = p_id_producto;
+  
+  COMMIT;
+END;
+
+
+BEGIN
+  eliminar_producto(108);
+END;
 
 
 
@@ -260,8 +427,7 @@ select * from Factura_Completa;
 --- Que producto tiene mas inventario?
 
 
---- SIGUE SIN FUNCIONAR , actualmente revisando la funcion.
-
+---1
 CREATE OR REPLACE FUNCTION masInventario(pCategoria IN tb_categorias.ID_categoria%TYPE) RETURN VARCHAR2 AS
     v_id_producto tb_productos.id_producto%TYPE;
     v_nom_producto tb_productos.nom_producto%TYPE;
@@ -284,17 +450,39 @@ END;
 
 SELECT masInventario(5) AS resultado FROM DUAL;
 
+---2
+
+CREATE OR REPLACE FUNCTION menosInventario(ID_Categoria_param IN tb_categorias.ID_categoria%TYPE) RETURN VARCHAR2 AS
+    v_id_producto tb_productos.id_producto%TYPE;
+    v_nom_producto tb_productos.nom_producto%TYPE;
+    v_min_unidades tb_productos.unidades%TYPE;
+BEGIN
+    SELECT MIN(unidades) INTO v_min_unidades
+    FROM tb_productos
+    WHERE ID_categoria = ID_Categoria_param;
+
+    SELECT ID_producto, nom_producto INTO v_id_producto, v_nom_producto
+    FROM tb_productos
+    WHERE unidades = v_min_unidades AND ID_categoria = ID_Categoria_param;
+
+    RETURN 'El producto con menor cantidad de inventario en la categoría ' || ID_Categoria_param || ' es: ' || v_nom_producto;
+END;
+
+SELECT menosInventario(5) AS resultado FROM DUAL;
 
 
+CREATE OR REPLACE FUNCTION obtener_proveedor_mas_caro RETURN VARCHAR2 AS
+  v_proveedor VARCHAR2(100);
+BEGIN
+  SELECT nombre_p INTO v_proveedor
+  FROM tb_proveedores
+  ORDER BY numero DESC
+  FETCH FIRST ROW ONLY;
+  RETURN v_proveedor;
+END;
 
 
-
-
-
-
-
-
-
+SELECT obtener_proveedor_mas_caro AS resultado FROM DUAL;
 
 
 
