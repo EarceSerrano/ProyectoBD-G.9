@@ -117,8 +117,8 @@ END;
 
 
 
-
----TRIGGER COMPRABDOS DE QUE SE CREAN CORRECTAMENTE---------------
+---------------------------------------------------------------------------------------
+----------------TRIGGER COMPRABDOS DE QUE SE CREAN CORRECTAMENTE-----------------------
 
 -- Trigger1
 CREATE OR REPLACE TRIGGER trigger_alerta_campo_vacio
