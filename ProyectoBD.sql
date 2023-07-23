@@ -262,7 +262,7 @@ select * from Factura_Completa;
 
 --- SIGUE SIN FUNCIONAR , actualmente revisando la funcion.
 
-CREATE OR REPLACE FUNCTION mas_inventario(pCategoria IN tb_categorias.ID_categoria%TYPE) RETURN VARCHAR2 AS
+CREATE OR REPLACE FUNCTION masInventario(pCategoria IN tb_categorias.ID_categoria%TYPE) RETURN VARCHAR2 AS
     v_id_producto tb_productos.id_producto%TYPE;
     v_nom_producto tb_productos.nom_producto%TYPE;
     v_max_unidades tb_productos.unidades%TYPE := 0;
@@ -282,7 +282,7 @@ END LOOP;
 END;
 
 
-SELECT mas_inventario(5) AS resultado FROM DUAL;
+SELECT masInventario(5) AS resultado FROM DUAL;
 
 
 
